@@ -1,0 +1,14 @@
+<h1>Agendar um Horário</h1>
+<form method="post">
+    {% csrf_token %}
+    Nome do Cliente: <input type="text" name="client_name"><br>
+    Data: <input type="date" name="date"><br>
+    Hora: <input type="time" name="time"><br>
+    Barbearia: 
+    <select name="barber_shop">
+        {% for barber_shop in barber_shops %}
+        <option value="{{ barber_shop.id }}">{{ barber_shop.name }}</option>
+        {% endfor %}
+    </select><br>
+    <button type="submit">Agendar</button>
+</form>
