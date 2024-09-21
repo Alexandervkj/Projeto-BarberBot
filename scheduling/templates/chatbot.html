@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Chatbot de Agendamento</title>
+</head>
+<body>
+    <h1>Chatbot de Agendamento</h1>
+    <div>
+        <p>{{ message }}</p>
+        <form method="post">
+            {% csrf_token %}
+            {% if message == "Qual é o seu nome?" %}
+                <input type="text" name="nome" required>
+            {% elif servicos %}
+                {% for servico in servicos %}
+                    <input type="radio" name="servico" value="{{ servico }}" required> {{ servico }}<br>
+                {% endif %}
+                <input type="submit" value="Enviar">
+            {% elif profissionais %}
+                {% for profissional in profissionais %}
+                    <input type="radio" name="profissional" value="{{ profissional }}" required> {{ profissional }}<br>
+                {% endif %}
+                <input type="submit" value="Enviar">
+            {% elif message == "Qual a data desejada?" %}
+                <input type="date" name="data" required>
+            {% elif message == "Qual seu número de telefone?" %}
+                <input type="text" name="telefone" required>
+            {% elif message.startswith("Você deseja agendar") %}
+                <input type="radio" name="confirmacao" value="sim" required> Sim<br>
+                <input type="radio" name="confirmacao" value="não" required> Não<br>
+            {% endif %}
+            <input type="submit" value="Enviar">
+        </form>
+    </div>
+</body>
+</html>
